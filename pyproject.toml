@@ -1,0 +1,22 @@
+[project]
+name = "orbslam-repro"
+version = "0.1.0"
+description = "ORB-SLAM (Mur-Artal et al., 2015) 单目系统的 Python 学习性复现"
+# g2o-python 0.0.12 在 Windows 上只有 cp310/cp311 的 wheel（实测 3.12 无法安装）
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    # g2o-python 0.0.12 与 numpy 2.x 二进制不兼容：传入 numpy 向量会直接 access violation 崩溃
+    "numpy<2",
+    "g2o-python==0.0.12",
+    "opencv-python",
+    "scipy",
+    "matplotlib",
+    "evo",
+]
+
+[dependency-groups]
+dev = ["pytest"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
