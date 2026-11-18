@@ -95,3 +95,16 @@ for t in img_t:
 
 matched_idx = np.array(matched_idx)
 time_diffs = np.array(time_diffs)
+# ---------------- 第 4c 步：检查关联结果 ----------------
+# 写完一段代码，要用数字检查结果是否合理，而不是只看它有没有报错
+print("最大时间差:", time_diffs.max())
+print("平均时间差:", time_diffs.mean())
+print("超过 0.02 秒的图像数:", np.sum(time_diffs > 0.02))
+# 如果 diff/j 写在循环外面，所有图会对到同一行，这里会打印 1
+print("对到了几个不同的真值行:", len(np.unique(matched_idx)))
+
+gt_for_images = gt[matched_idx]    # 每张图对应的那一行真值，形状应该是 (798, 8)
+print(gt_for_images.shape)
+
+# 第 4 步的成果：第 i 张图拍摄时，相机在 gt_for_images[i] 那个位置。
+# 这份草稿的逻辑已经整理进 orbslam/dataset.py，之后的代码都调用那里的 TUMDataset。

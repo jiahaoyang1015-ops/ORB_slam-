@@ -6,7 +6,7 @@
 
 ---
 
-## 阶段 0　环境与数据
+## 阶段 0　环境与数据（✅ 已完成：orbslam/dataset.py、scripts/stage0_view.py、tests/test_dataset.py）
 
 ### 0.1 环境（已完成）
 
@@ -46,8 +46,9 @@ class TUMDataset:
     def __getitem__(self, i) -> tuple[float, np.ndarray]:
         """返回 (时间戳, 灰度图 uint8 HxW)。"""
     camera: Camera
-    def groundtruth(self) -> np.ndarray:
-        """返回 Nx8 数组 [t, tx, ty, tz, qx, qy, qz, qw]，与图像按最近时间戳关联。"""
+    def groundtruth(self) -> tuple[np.ndarray, np.ndarray]:
+        """返回 (frame_idx, gt)：有真值的图像下标，以及对应的 Kx8 真值
+        [t, tx, ty, tz, qx, qy, qz, qw]，按最近时间戳关联。"""
 ```
 
 要点：
